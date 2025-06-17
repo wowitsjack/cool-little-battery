@@ -1,14 +1,4 @@
-/*
- * 🔋 Cool Little Battery Monitor - Hardcore C Edition 🔋
- * A system tray battery monitor that FORCES you to take care of your battery!
- * 
- * Features:
- * - System tray icon
- * - Impossible to ignore alerts at 20%
- * - Forced suspend at 10% 
- * - Configuration file support
- * - Pop!_OS optimized
- */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -508,14 +498,14 @@ static void on_settings_clicked(GtkMenuItem *item, gpointer data) {
     
     // Warning level
     GtkWidget *warning_label = gtk_label_new("Warning Level (%):");
-    GtkWidget *warning_spin = gtk_spin_button_new_with_range(5, 50, 1);
+    GtkWidget *warning_spin = gtk_spin_button_new_with_range(5, 95, 1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(warning_spin), config.warning_level);
     gtk_grid_attach(GTK_GRID(grid), warning_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(grid), warning_spin, 1, 0, 1, 1);
     
     // Critical level
     GtkWidget *critical_label = gtk_label_new("Critical Level (%):");
-    GtkWidget *critical_spin = gtk_spin_button_new_with_range(1, 25, 1);
+    GtkWidget *critical_spin = gtk_spin_button_new_with_range(1, 50, 1);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(critical_spin), config.critical_level);
     gtk_grid_attach(GTK_GRID(grid), critical_label, 0, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(grid), critical_spin, 1, 1, 1, 1);

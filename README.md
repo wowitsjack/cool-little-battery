@@ -113,6 +113,33 @@ ls /sys/class/power_supply/BAT*
 cat /sys/class/power_supply/BAT0/capacity
 ```
 
+### Run as a Service (auto on login)
+
+```bash
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
+mkdir -p "$CONFIG_DIR"
+
+cat > "$CONFIG_DIR/battery-monitor.service" << 'EOF'
+[Unit]
+Description=Battery Monitor Service
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/battery_monitor
+Restart=on-failure
+RestartSec=5
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable battery-monitor.service
+systemctl --user start battery-monitor.service
+```
+
 ### System Tray Not Showing
 - Ensure you have a system tray in your desktop environment
 - Check if GTK3 is properly installed
